@@ -18,43 +18,55 @@ public class practicaTika {
 
         String directorioDatos = "/Users/Ivanovic/Documents/Recuperacion-Informacion-Tika/datosEntrada/";
 
-        File origen = new File(directorioDatos+"pg29706-images.epub");
+        File origen = new File(directorioDatos);
 
-        InputStream flujo = new FileInputStream (origen);
+        String [] ficheros = origen.list();
 
-        try{
-            Metadata metadata = new Metadata ();
+        if (ficheros == null){
+            return;
+        }
 
-            //Le pasamos el -1 para que no nos salte un error de que el fichero sobrepasa el límite de caracteres.
-            ContentHandler handler = new BodyContentHandler (-1);
+        for (String f: ficheros) {
 
-            ParseContext parseContext = new ParseContext ();
+            if(!f.contains(".DS_Store")) {
 
-            AutoDetectParser parser = new AutoDetectParser ();
+                System.out.println("Fichero: " + f);
 
-            parser.parse ( flujo , handler , metadata , parseContext );
+                InputStream flujo = new FileInputStream(directorioDatos+f);
 
-            System.out.println("ch " + handler.toString());
+                try {
+                    Metadata metadata = new Metadata();
 
-            //Ejemplo de sacar datos pares<clave,valor>.
-            for (String name : metadata.names()) {
-                String valor = metadata.get(name);
-                if (valor != null) {
-                    System.out.println("metadata: " + name + " " + valor);
+                    //Le pasamos el -1 para que no nos salte un error de que el fichero sobrepasa el límite de caracteres.
+                    ContentHandler handler = new BodyContentHandler(-1);
+
+                    ParseContext parseContext = new ParseContext();
+
+                    AutoDetectParser parser = new AutoDetectParser();
+
+                    parser.parse(flujo, handler, metadata, parseContext);
+
+                    //System.out.println("ch " + handler.toString());
+
+                    //Ejemplo de sacar datos pares<clave,valor>.
+                    /*for (String name : metadata.names()) {
+                        String valor = metadata.get(name);
+                        if (valor != null) {
+                            System.out.println("metadata: " + name + " " + valor);
+                        }
+                    }*/
+
+                    //Ejemplo de sacar metadatos por su nombre.
+                    System.out.println("Title: " + metadata.get("title"));
+                    System.out.println("Format: " + metadata.get(Metadata.CONTENT_TYPE));
+                    System.out.println("Conding: " + metadata.get(Metadata.CONTENT_ENCODING));
+                    System.out.println("Language " + metadata.get("language"));
+                    System.out.println("-----------------------------------------------------------------------------");
+                } finally {
+
+                    flujo.close();
                 }
             }
-
-            //Ejemplo de sacar metadatos por su nombre.
-            System.out.println("Format: "+metadata.get(Metadata.CONTENT_TYPE));
-            System.out.println("Language "+metadata.get("language"));
         }
-        finally {
-
-            flujo.close();
-        }
-
-
-
-
     }
 }
