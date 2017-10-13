@@ -1,42 +1,72 @@
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-
-import org.apache.tika.Tika;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.parser.AutoDetectParser;
-import org.apache.tika.parser.ParseContext;
-import org.apache.tika.sax.BodyContentHandler;
 import org.xml.sax.ContentHandler;
-import org.apache.tika.language.LanguageIdentifier;
-import org.apache.tika.language.detect.LanguageDetector;
-import org.apache.tika.langdetect.OptimaizeLangDetector;
-import org.apache.tika.language.detect.LanguageResult;
 
 public class occurrences {
 
-    private HashMap<String, Integer> occurrences;
+    private Map<String, Integer> occurrences;
+
+    private int totalOccurrences;
 
     public occurrences ( ContentHandler words){
 
-        occurrences = new HashMap<String, Integer>();
+        occurrences = new TreeMap<String, Integer>();
+        totalOccurrences= 0;
+        String aux = "";
+        boolean keep = false;
+        boolean isLink = false;
 
-        String [] occurrencias = words.toString().split(" ");
+        for (int i = 0; i < words.toString().length(); i++){
 
-        for (String cadena : occurrencias){
 
-            if (occurrences.containsKey(cadena)){
-                occurrences.put(cadena, occurrences.get(cadena)+1);
+            //Parseamos el fichero correspondiente.
+
+            if (isLink && words.toString().charAt(i) != ' ' && words.toString().charAt(i) != '"'){
+                aux += words.toString().charAt(i);
             }
 
-            else{
-                occurrences.put(cadena, 1);
+            else if (words.toString().charAt(i) != ' ' &&  words.toString().charAt(i) != ',' && words.toString().charAt(i) != '.'
+                    && words.toString().charAt(i) != '\n' && words.toString().charAt(i) != '\t' && words.toString().charAt(i) != '·'
+                    && words.toString().charAt(i) != '"' && words.toString().charAt(i) != ':' && !isLink
+                    && words.toString().charAt(i) != '-'){
+                keep = false;
+                aux += words.toString().charAt(i);
+
+                if (aux.equals("http"))
+                    isLink = true;
             }
+            else if (!keep){
+
+                if(occurrences.containsKey(aux)) {
+                    occurrences.put(aux, occurrences.get(aux) + 1);
+                }
+                else{
+
+                    occurrences.put(aux,1);
+                    totalOccurrences++;
+
+                }
+
+
+                keep = true;
+                isLink = false;
+
+                aux = "";
+            }
+
+
+
+
         }
     }
 
 
-    public HashMap<String, Integer> shortOccurrences(){
+    public Map<String, Integer> shortOccurrences(){
+
         return occurrences;
+    }
+
+    public int getValue(){
+        return totalOccurrences;
     }
 }
