@@ -16,7 +16,7 @@ public class practicaTika {
         Tika tika = new Tika();
         // Se parsean los ficheros pasados como argumento y se extrae el contenido
 
-        String directorioDatos = "/Users/Ivanovic/Documents/Recuperacion-Informacion-Tika/datosEntrada/";
+        String directorioDatos = "~/practicaP1RI/datosEntrada/";
 
         File origen = new File(directorioDatos);
 
@@ -30,7 +30,7 @@ public class practicaTika {
 
             if(!f.contains(".DS_Store")) {
 
-                System.out.println("Fichero: " + f);
+                //System.out.println("Fichero: " + f);
 
                 InputStream flujo = new FileInputStream(directorioDatos+f);
 
@@ -45,16 +45,6 @@ public class practicaTika {
                     AutoDetectParser parser = new AutoDetectParser();
 
                     parser.parse(flujo, handler, metadata, parseContext);
-
-                    //System.out.println("ch " + handler.toString());
-
-                    //Ejemplo de sacar datos pares<clave,valor>.
-                    /*for (String name : metadata.names()) {
-                        String valor = metadata.get(name);
-                        if (valor != null) {
-                            System.out.println("metadata: " + name + " " + valor);
-                        }
-                    }*/
 
                     //Ejemplo de sacar metadatos por su nombre.
                     System.out.println("Title: " + metadata.get("title"));
