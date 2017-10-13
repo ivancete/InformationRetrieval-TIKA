@@ -16,7 +16,12 @@ public class practicaTika {
         Tika tika = new Tika();
         // Se parsean los ficheros pasados como argumento y se extrae el contenido
 
-        String directorioDatos = "~/practicaP1RI/datosEntrada/";
+        String directorioDatos = System.getProperty("user.dir") + "/datosEntrada/";
+
+        System.out.println(directorioDatos);
+
+        //System.out.println("Working Directory = " +
+        //    System.getProperty("user.dir"));
 
         File origen = new File(directorioDatos);
 
