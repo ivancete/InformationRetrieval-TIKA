@@ -1,29 +1,24 @@
+import com.google.common.collect.TreeMultimap;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.sax.BodyContentHandler;
-import org.apache.tika.sax.TeeContentHandler;
-import org.apache.tika.sax.ToHTMLContentHandler;
 import org.xml.sax.ContentHandler;
-import org.apache.tika.sax.LinkContentHandler;
-import org.apache.tika.language.LanguageIdentifier;
 import org.apache.tika.language.detect.LanguageDetector;
 import org.apache.tika.langdetect.OptimaizeLangDetector;
 import org.apache.tika.language.detect.LanguageResult;
-
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 public class practicaTika {
 
     public static void main(String [] args) throws Exception{
+
         Tika tika = new Tika();
         // Se parsean los ficheros pasados como argumento y se extrae el contenido
 
@@ -42,8 +37,6 @@ public class practicaTika {
         for (String f: ficheros) {
 
             if(!f.contains(".DS_Store")) {
-
-                //System.out.println("Fichero: " + f);
 
                 InputStream flujo = new FileInputStream(directorioDatos+f);
 
@@ -69,6 +62,32 @@ public class practicaTika {
                     Map<String, Integer> valores = occurr.shortOccurrences();
 
                     System.out.println("Ocurrencias total de palabras diferentes: "+occurr.getValue());
+
+                    System.out.println("--------------------------------VALORES SIN ORDENADAR------------------------------------------");
+
+                    for (String key : valores.keySet()){
+
+                        System.out.println("Key: "+ key + " Value: "+ valores.get(key));
+
+                    }
+
+                    System.out.println("---------------------------------VALORES ORDENADOS---------------------------");
+
+                    TreeMultimap<Integer,String> valoresOrdenados = occurr.shortedOccurrences();
+
+                    for (Integer key : valoresOrdenados.keySet()){
+
+                        System.out.println("Key: "+ key + " Value: ");
+
+                        Set<String> aux = valoresOrdenados.get(key);
+
+                        for (String cadena : aux){
+                            System.out.println(cadena);
+                        }
+
+                    }
+
+                    System.out.println("-----------------------------------------------------------------------------");
 
                     //Ejemplo de sacar metadatos por su nombre.
                     System.out.println("Title: " + metadata.get("title"));

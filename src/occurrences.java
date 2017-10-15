@@ -1,17 +1,23 @@
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
+
+import com.google.common.collect.Ordering;
+import com.google.common.collect.TreeMultimap;
 import org.xml.sax.ContentHandler;
 
 public class occurrences {
 
     private Map<String, Integer> occurrences;
+    private TreeMultimap<Integer, String> occurrencesSorted;
 
     private int totalOccurrences;
 
     public occurrences ( ContentHandler words){
 
-        occurrences = new TreeMap<String, Integer>();
+        occurrences = new HashMap<String, Integer>();
+        occurrencesSorted = TreeMultimap.create(Ordering.natural().reverse(),Ordering.natural());
         totalOccurrences= 0;
+
         String aux = "";
         boolean keep = false;
         boolean isLink = false;
@@ -47,23 +53,26 @@ public class occurrences {
 
                 }
 
-
                 keep = true;
                 isLink = false;
 
                 aux = "";
             }
-
-
-
-
         }
+
+        occurrences.forEach((k,v) -> occurrencesSorted.put(v,k));
     }
 
 
     public Map<String, Integer> shortOccurrences(){
 
         return occurrences;
+    }
+
+    public TreeMultimap<Integer,String> shortedOccurrences(){
+
+        return occurrencesSorted;
+
     }
 
     public int getValue(){
