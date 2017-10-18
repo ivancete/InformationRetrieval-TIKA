@@ -5,14 +5,14 @@ import com.google.common.collect.Ordering;
 import com.google.common.collect.TreeMultimap;
 import org.xml.sax.ContentHandler;
 
-public class occurrences {
+public class Occurrences {
 
     private Map<String, Integer> occurrences;
     private TreeMultimap<Integer, String> occurrencesSorted;
 
     private int totalOccurrences;
 
-    public occurrences ( ContentHandler words){
+    public Occurrences(ContentHandler words){
 
         occurrences = new HashMap<String, Integer>();
         occurrencesSorted = TreeMultimap.create(Ordering.natural().reverse(),Ordering.natural());
@@ -21,27 +21,31 @@ public class occurrences {
         String aux = "";
         boolean keep = false;
         boolean isLink = false;
+        String text = words.toString().toLowerCase();
 
-        for (int i = 0; i < words.toString().length(); i++){
+        for (int i = 0; i < text.length(); i++){
 
 
             //Parseamos el fichero correspondiente.
 
-            if (isLink && words.toString().charAt(i) != ' ' && words.toString().charAt(i) != '"'){
-                aux += words.toString().charAt(i);
+            if (isLink && text.charAt(i) != ' ' && text.charAt(i) != '"'){
+                aux += text.charAt(i);
             }
 
-            else if (words.toString().charAt(i) != ' ' &&  words.toString().charAt(i) != ',' && words.toString().charAt(i) != '.'
-                    && words.toString().charAt(i) != '\n' && words.toString().charAt(i) != '\t' && words.toString().charAt(i) != '·'
-                    && words.toString().charAt(i) != '"' && words.toString().charAt(i) != ':' && !isLink
-                    && words.toString().charAt(i) != '-'){
-                keep = false;
-                aux += words.toString().charAt(i);
+            else if (text.charAt(i) != ' ' &&  text.charAt(i) != ',' && text.charAt(i) != '.'
+                    && text.charAt(i) != '\n' && text.charAt(i) != '\t' && text.charAt(i) != '·'
+                    && text.charAt(i) != '"' && text.charAt(i) != ':' && !isLink
+                    && text.charAt(i) != '-' && text.charAt(i) != '“' && text.charAt(i) != ' '
+                    && text.charAt(i) != ';' && text.charAt(i) != '(' && text.charAt(i) != ')'
+                    && text.charAt(i) != '!' && text.charAt(i) != '¡' && text.charAt(i) != '?'
+                    && text.charAt(i) != '¿' && text.charAt(i) != '”'){
+                keep = true;
+                aux += text.charAt(i);
 
                 if (aux.equals("http"))
                     isLink = true;
             }
-            else if (!keep){
+            else if (keep){
 
                 if(occurrences.containsKey(aux)) {
                     occurrences.put(aux, occurrences.get(aux) + 1);
@@ -53,23 +57,18 @@ public class occurrences {
 
                 }
 
-                keep = true;
+                keep = false;
                 isLink = false;
 
                 aux = "";
+
             }
         }
 
         occurrences.forEach((k,v) -> occurrencesSorted.put(v,k));
     }
 
-
-    public Map<String, Integer> shortOccurrences(){
-
-        return occurrences;
-    }
-
-    public TreeMultimap<Integer,String> shortedOccurrences(){
+    public TreeMultimap<Integer,String> sortedOccurrences(){
 
         return occurrencesSorted;
 

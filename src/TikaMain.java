@@ -11,11 +11,10 @@ import org.apache.tika.language.detect.LanguageResult;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Map;
 import java.util.Set;
 
 
-public class practicaTika {
+public class TikaMain {
 
     public static void main(String [] args) throws Exception{
 
@@ -57,23 +56,11 @@ public class practicaTika {
 
                     LanguageResult idioma = identifier.detect (handler.toString());
 
-                    occurrences occurr = new occurrences(handler);
-
-                    Map<String, Integer> valores = occurr.shortOccurrences();
-
-                    System.out.println("Ocurrencias total de palabras diferentes: "+occurr.getValue());
-
-                    System.out.println("--------------------------------VALORES SIN ORDENADAR------------------------------------------");
-
-                    for (String key : valores.keySet()){
-
-                        System.out.println("Key: "+ key + " Value: "+ valores.get(key));
-
-                    }
+                    Occurrences occurr = new Occurrences(handler);
 
                     System.out.println("---------------------------------VALORES ORDENADOS---------------------------");
 
-                    TreeMultimap<Integer,String> valoresOrdenados = occurr.shortedOccurrences();
+                    TreeMultimap<Integer,String> valoresOrdenados = occurr.sortedOccurrences();
 
                     for (Integer key : valoresOrdenados.keySet()){
 
@@ -82,7 +69,7 @@ public class practicaTika {
                         Set<String> aux = valoresOrdenados.get(key);
 
                         for (String cadena : aux){
-                            System.out.println(cadena);
+                            System.out.println("\t" + cadena);
                         }
 
                     }
