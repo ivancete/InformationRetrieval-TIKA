@@ -87,14 +87,14 @@ public class Occurrences {
             fichero = new FileWriter(Title+"-Ocurrences.txt");
             pw = new PrintWriter(fichero);
 
-            pw.println("Occurrences \t Word");
+            pw.println("Word \t Occurrence");
 
             for (Integer key : occurrencesSorted.keySet()){
 
                 Set<String> aux = occurrencesSorted.get(key);
 
                 for (String cadena : aux){
-                    pw.println(key + "\t" + cadena);
+                    pw.println(cadena + "\t" + key);
                 }
             }
 
