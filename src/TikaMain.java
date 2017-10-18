@@ -58,7 +58,7 @@ public class TikaMain {
 
                     Occurrences occurr = new Occurrences(handler);
 
-                    System.out.println("---------------------------------VALORES ORDENADOS---------------------------");
+                    /*System.out.println("---------------------------------VALORES ORDENADOS---------------------------");
 
                     TreeMultimap<Integer,String> valoresOrdenados = occurr.sortedOccurrences();
 
@@ -72,7 +72,7 @@ public class TikaMain {
                             System.out.println("\t" + cadena);
                         }
 
-                    }
+                    }*/
 
                     System.out.println("-----------------------------------------------------------------------------");
 
