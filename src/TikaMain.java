@@ -84,6 +84,8 @@ public class TikaMain {
                     System.out.println("Language Detect: " + idioma.getLanguage());
                     System.out.println("-----------------------------------------------------------------------------");
 
+                    occurr.occurrencesToFile(metadata.get("title"));
+
                     return;
 
                 } finally {

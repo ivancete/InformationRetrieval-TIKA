@@ -1,5 +1,8 @@
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.common.collect.Ordering;
 import com.google.common.collect.TreeMultimap;
@@ -74,7 +77,45 @@ public class Occurrences {
 
     }
 
+    public void occurrencesToFile(String Title){
+
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+
+        try
+        {
+            fichero = new FileWriter(Title+"-Ocurrences.txt");
+            pw = new PrintWriter(fichero);
+
+            pw.println("Occurrences \t Word");
+
+            for (Integer key : occurrencesSorted.keySet()){
+
+                Set<String> aux = occurrencesSorted.get(key);
+
+                for (String cadena : aux){
+                    pw.println(key + "\t" + cadena);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Nuevamente aprovechamos el finally para
+                // asegurarnos que se cierra el fichero.
+                if (null != fichero)
+                    fichero.close();
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+
+
+    }
+
     public int getValue(){
+
         return totalOccurrences;
     }
 }
