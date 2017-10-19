@@ -41,7 +41,7 @@ public class Occurrences {
                     && text.charAt(i) != '-' && text.charAt(i) != '“' && text.charAt(i) != ' '
                     && text.charAt(i) != ';' && text.charAt(i) != '(' && text.charAt(i) != ')'
                     && text.charAt(i) != '!' && text.charAt(i) != '¡' && text.charAt(i) != '?'
-                    && text.charAt(i) != '¿' && text.charAt(i) != '”'){
+                    && text.charAt(i) != '¿' && text.charAt(i) != '”' && text.charAt(i) != '*'){
                 keep = true;
                 aux += text.charAt(i);
 
@@ -80,19 +80,43 @@ public class Occurrences {
     public void occurrencesToFile(String Title){
 
         FileWriter fichero = null;
+        FileWriter ficheroLog = null;
+        FileWriter ficheroWord = null;
         PrintWriter pw = null;
+        PrintWriter pwLog = null;
+        PrintWriter pwWord = null;
 
         try
         {
-            fichero = new FileWriter("datosSalida/"+Title+"-Ocurrences.txt");
+            fichero = new FileWriter("datosSalida/"+Title+"-Ocurrences.dat");
             pw = new PrintWriter(fichero);
+
+            ficheroLog = new FileWriter("datosSalida/"+Title+"-OcurrencesLog.dat");
+            pwLog = new PrintWriter(ficheroLog);
+
+            int j = 1;
 
             for (Integer key : occurrencesSorted.keySet()){
 
                 Set<String> aux = occurrencesSorted.get(key);
 
                 for (String cadena : aux){
-                    pw.println(key + "\t" + cadena);
+                    pw.println(j + "\t" + key);
+                    pwLog.println(Math.log(j) + "\t" + Math.log(key));
+
+                    j++;
+                }
+            }
+
+            ficheroWord = new FileWriter("datosSalida/"+Title+"-OcurrencesWord.txt");
+            pwWord = new PrintWriter(ficheroWord);
+
+            for (Integer key : occurrencesSorted.keySet()){
+
+                Set<String> aux = occurrencesSorted.get(key);
+
+                for (String cadena : aux){
+                    pwWord.println(cadena + "\t" + key);
                 }
             }
 
@@ -102,8 +126,11 @@ public class Occurrences {
             try {
                 // Nuevamente aprovechamos el finally para
                 // asegurarnos que se cierra el fichero.
-                if (null != fichero)
+                if (null != fichero && null != ficheroLog) {
                     fichero.close();
+                    ficheroLog.close();
+                    pwWord.close();
+                }
             } catch (Exception e2) {
                 e2.printStackTrace();
             }

@@ -1,0 +1,144 @@
+
+
+*******************************************************************************
+Thu Oct 19 20:05:15 2017
+
+
+FIT:    data read from 'datosSalida/Gutenberg-OcurrencesLog.dat'
+        format = z
+        #datapoints = 363
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x)=a*x+b
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 1.2029440785e+04   0.00e+00  3.61e+00    1.000000e+00   1.000000e+00
+   4 1.4570098773e+01  -1.78e-07  3.61e-04   -6.630691e-01   3.634346e+00
+
+After 4 iterations the fit converged.
+final sum of squares of residuals : 14.5701
+rel. change during last iteration : -1.78122e-12
+
+degrees of freedom    (FIT_NDF)                        : 361
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.200899
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.0403604
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = -0.663069        +/- 0.01089      (1.642%)
+b               = 3.63435          +/- 0.05444      (1.498%)
+
+correlation matrix of the fit parameters:
+                a      b      
+a               1.000 
+b              -0.981  1.000 
+
+
+*******************************************************************************
+Thu Oct 19 20:05:16 2017
+
+
+FIT:    data read from 'datosSalida/Szerelem bolondjai-OcurrencesLog.dat'
+        format = z
+        #datapoints = 26165
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x)=a*x+b
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 2.1787939150e+05   0.00e+00  5.03e+00   -6.630691e-01   3.634346e+00
+   3 1.4951101105e+03  -1.10e-07  5.03e-03   -7.883381e-01   7.656400e+00
+
+After 3 iterations the fit converged.
+final sum of squares of residuals : 1495.11
+rel. change during last iteration : -1.09953e-12
+
+degrees of freedom    (FIT_NDF)                        : 26163
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.239052
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.057146
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = -0.788338        +/- 0.00148      (0.1877%)
+b               = 7.6564           +/- 0.01365      (0.1783%)
+
+correlation matrix of the fit parameters:
+                a      b      
+a               1.000 
+b              -0.994  1.000 
+
+
+*******************************************************************************
+Thu Oct 19 20:05:16 2017
+
+
+FIT:    data read from 'datosSalida/Cartas de mi molino-OcurrencesLog.dat'
+        format = z
+        #datapoints = 8576
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x)=a*x+b
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 5.8092543863e+03   0.00e+00  7.06e+00   -7.883381e-01   7.656400e+00
+   2 3.5145887507e+02  -6.12e-02  7.06e-02   -8.384760e-01   7.264198e+00
+
+After 2 iterations the fit converged.
+final sum of squares of residuals : 351.459
+rel. change during last iteration : -6.11651e-07
+
+degrees of freedom    (FIT_NDF)                        : 8574
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.202463
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.0409912
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = -0.838476        +/- 0.002193     (0.2615%)
+b               = 7.2642           +/- 0.0178       (0.245%)
+
+correlation matrix of the fit parameters:
+                a      b      
+a               1.000 
+b              -0.992  1.000 
+
+
+*******************************************************************************
+Thu Oct 19 20:05:17 2017
+
+
+FIT:    data read from 'datosSalida/History of Cleopatra, Queen of Egypt-OcurrencesLog.dat'
+        format = z
+        #datapoints = 6402
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x)=a*x+b
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a             b            
+   0 8.5449517749e+02   0.00e+00  6.92e+00   -8.384760e-01   7.264198e+00
+   3 1.8926933134e+02  -3.65e-06  6.92e-03   -1.111414e+00   9.556667e+00
+
+After 3 iterations the fit converged.
+final sum of squares of residuals : 189.269
+rel. change during last iteration : -3.65467e-11
+
+degrees of freedom    (FIT_NDF)                        : 6400
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.171969
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.0295733
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = -1.11141         +/- 0.002157     (0.1941%)
+b               = 9.55667          +/- 0.01689      (0.1767%)
+
+correlation matrix of the fit parameters:
+                a      b      
+a               1.000 
+b              -0.992  1.000 

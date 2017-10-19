@@ -3,7 +3,11 @@ import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.html.HtmlParser;
 import org.apache.tika.sax.BodyContentHandler;
+import org.apache.tika.sax.LinkContentHandler;
+import org.apache.tika.sax.TeeContentHandler;
+import org.apache.tika.sax.ToHTMLContentHandler;
 import org.xml.sax.ContentHandler;
 import org.apache.tika.language.detect.LanguageDetector;
 import org.apache.tika.langdetect.OptimaizeLangDetector;
@@ -52,27 +56,13 @@ public class TikaMain {
 
                     parser.parse(flujo, handler, metadata, parseContext);
 
+                    Occurrences occurr = new Occurrences(handler);
+
+                    occurr.occurrencesToFile(metadata.get("title"));
+
                     LanguageDetector identifier = new OptimaizeLangDetector().loadModels();
 
                     LanguageResult idioma = identifier.detect (handler.toString());
-
-                    Occurrences occurr = new Occurrences(handler);
-
-                    /*System.out.println("---------------------------------VALORES ORDENADOS---------------------------");
-
-                    TreeMultimap<Integer,String> valoresOrdenados = occurr.sortedOccurrences();
-
-                    for (Integer key : valoresOrdenados.keySet()){
-
-                        System.out.println("Key: "+ key + " Value: ");
-
-                        Set<String> aux = valoresOrdenados.get(key);
-
-                        for (String cadena : aux){
-                            System.out.println("\t" + cadena);
-                        }
-
-                    }*/
 
                     System.out.println("-----------------------------------------------------------------------------");
 
@@ -82,11 +72,8 @@ public class TikaMain {
                     System.out.println("Conding: " + metadata.get(Metadata.CONTENT_ENCODING));
                     System.out.println("Language " + metadata.get("language"));
                     System.out.println("Language Detect: " + idioma.getLanguage());
+
                     System.out.println("-----------------------------------------------------------------------------");
-
-                    occurr.occurrencesToFile(metadata.get("title"));
-
-                    return;
 
                 } finally {
 
