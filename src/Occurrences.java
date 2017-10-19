@@ -129,7 +129,7 @@ public class Occurrences {
                 if (null != fichero && null != ficheroLog) {
                     fichero.close();
                     ficheroLog.close();
-                    pwWord.close();
+                    ficheroWord.close();
                 }
             } catch (Exception e2) {
                 e2.printStackTrace();

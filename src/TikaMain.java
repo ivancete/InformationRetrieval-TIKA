@@ -1,13 +1,8 @@
-import com.google.common.collect.TreeMultimap;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
-import org.apache.tika.parser.html.HtmlParser;
 import org.apache.tika.sax.BodyContentHandler;
-import org.apache.tika.sax.LinkContentHandler;
-import org.apache.tika.sax.TeeContentHandler;
-import org.apache.tika.sax.ToHTMLContentHandler;
 import org.xml.sax.ContentHandler;
 import org.apache.tika.language.detect.LanguageDetector;
 import org.apache.tika.langdetect.OptimaizeLangDetector;
@@ -15,8 +10,6 @@ import org.apache.tika.language.detect.LanguageResult;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Set;
-
 
 public class TikaMain {
 
@@ -33,6 +26,8 @@ public class TikaMain {
 
         String [] ficheros = origen.list();
 
+        Metadatas metadatas = new Metadatas();
+
         if (ficheros == null){
             return;
         }
@@ -43,9 +38,13 @@ public class TikaMain {
 
                 InputStream flujo = new FileInputStream(directorioDatos+f);
 
+                InputStream flujo2 = new FileInputStream(directorioDatos+f);
+
                 try {
 
-                    Metadata metadata = new Metadata();
+                    metadatas.extractionMetadata(flujo, flujo2);
+
+                    /*Metadata metadata = new Metadata();
 
                     //Le pasamos el -1 para que no nos salte un error de que el fichero sobrepasa el límite de caracteres.
                     ContentHandler handler = new BodyContentHandler(-1);
@@ -73,13 +72,16 @@ public class TikaMain {
                     System.out.println("Language " + metadata.get("language"));
                     System.out.println("Language Detect: " + idioma.getLanguage());
 
-                    System.out.println("-----------------------------------------------------------------------------");
+                    System.out.println("-----------------------------------------------------------------------------");*/
 
                 } finally {
 
                     flujo.close();
+                    flujo2.close();
                 }
             }
         }
+
+        metadatas.finallyExtraction();
     }
 }
