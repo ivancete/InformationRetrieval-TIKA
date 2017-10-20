@@ -24,31 +24,31 @@ public class Occurrences {
         String aux = "";
         boolean keep = false;
         boolean isLink = false;
-        String text = words.toString().toLowerCase();
 
-        for (int i = 0; i < text.length(); i++){
-
+        for (int i = 0; i < words.toString().length(); i++){
 
             //Parseamos el fichero correspondiente.
 
-            if (isLink && text.charAt(i) != ' ' && text.charAt(i) != '"'){
-                aux += text.charAt(i);
+            if (isLink && words.toString().charAt(i) != ' ' && words.toString().charAt(i) != '"'){
+                aux += words.toString().charAt(i);
             }
 
-            else if (text.charAt(i) != ' ' &&  text.charAt(i) != ',' && text.charAt(i) != '.'
-                    && text.charAt(i) != '\n' && text.charAt(i) != '\t' && text.charAt(i) != '·'
-                    && text.charAt(i) != '"' && text.charAt(i) != ':' && !isLink
-                    && text.charAt(i) != '-' && text.charAt(i) != '“' && text.charAt(i) != ' '
-                    && text.charAt(i) != ';' && text.charAt(i) != '(' && text.charAt(i) != ')'
-                    && text.charAt(i) != '!' && text.charAt(i) != '¡' && text.charAt(i) != '?'
-                    && text.charAt(i) != '¿' && text.charAt(i) != '”' && text.charAt(i) != '*'){
+            else if (words.toString().charAt(i) != ' ' &&  words.toString().charAt(i) != ',' && words.toString().charAt(i) != '.'
+                    && words.toString().charAt(i) != '\n' && words.toString().charAt(i) != '\t' && words.toString().charAt(i) != '·'
+                    && words.toString().charAt(i) != '"' && words.toString().charAt(i) != ':' && !isLink
+                    && words.toString().charAt(i) != '-' && words.toString().charAt(i) != '“' && words.toString().charAt(i) != ' '
+                    && words.toString().charAt(i) != ';' && words.toString().charAt(i) != '(' && words.toString().charAt(i) != ')'
+                    && words.toString().charAt(i) != '!' && words.toString().charAt(i) != '¡' && words.toString().charAt(i) != '?'
+                    && words.toString().charAt(i) != '¿' && words.toString().charAt(i) != '”' && words.toString().charAt(i) != '*'){
                 keep = true;
-                aux += text.charAt(i);
+                aux += words.toString().charAt(i);
 
                 if (aux.equals("http"))
                     isLink = true;
             }
             else if (keep){
+
+                aux = aux.toLowerCase();
 
                 if(occurrences.containsKey(aux)) {
                     occurrences.put(aux, occurrences.get(aux) + 1);
@@ -88,10 +88,10 @@ public class Occurrences {
 
         try
         {
-            fichero = new FileWriter("datosSalida/"+Title+"-Ocurrences.dat");
+            fichero = new FileWriter("datosSalida/"+Title+"-Occurrences.dat");
             pw = new PrintWriter(fichero);
 
-            ficheroLog = new FileWriter("datosSalida/"+Title+"-OcurrencesLog.dat");
+            ficheroLog = new FileWriter("datosSalida/"+Title+"-OccurrencesLog.dat");
             pwLog = new PrintWriter(ficheroLog);
 
             int j = 1;
@@ -108,7 +108,7 @@ public class Occurrences {
                 }
             }
 
-            ficheroWord = new FileWriter("datosSalida/"+Title+"-OcurrencesWord.txt");
+            ficheroWord = new FileWriter("datosSalida/"+Title+"-OccurrencesWord.txt");
             pwWord = new PrintWriter(ficheroWord);
 
             for (Integer key : occurrencesSorted.keySet()){
